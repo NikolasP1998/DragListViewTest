@@ -71,7 +71,7 @@ class ItemAdapter extends DragItemAdapter<Pair<Long, String>, ItemAdapter.ViewHo
 
         @Override
         public void onItemClicked(View view) {
-            Toast.makeText(view.getContext(), "Item clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(), "Item clicked!", Toast.LENGTH_SHORT).show();
         }
 
         @Override

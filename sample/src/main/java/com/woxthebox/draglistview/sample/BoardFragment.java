@@ -36,6 +36,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.woxthebox.draglistview.BoardView;
 import com.woxthebox.draglistview.DragItem;
@@ -79,7 +80,8 @@ public class BoardFragment extends Fragment {
             @Override
             public void onItemDragEnded(int fromColumn, int fromRow, int toColumn, int toRow) {
                 if (fromColumn != toColumn || fromRow != toRow) {
-                    //Toast.makeText(getContext(), "End - column: " + toColumn + " row: " + toRow, Toast.LENGTH_SHORT).show();
+
+                   Toast.makeText(getContext(),  "from row "+fromRow+" to row " + toRow, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -139,28 +141,25 @@ public class BoardFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Board");
 
         addColumn();
-        addColumn();
-        addColumn();
-        addColumn();
-        addColumn();
+
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_board, menu);
+        //inflater.inflate(R.menu.menu_board, menu);
     }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.action_disable_drag).setVisible(mBoardView.isDragEnabled());
-        menu.findItem(R.id.action_enable_drag).setVisible(!mBoardView.isDragEnabled());
+       /* menu.findItem(R.id.action_disable_drag).setVisible(mBoardView.isDragEnabled());
+        menu.findItem(R.id.action_enable_drag).setVisible(!mBoardView.isDragEnabled());*/
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+       /* switch (item.getItemId()) {
             case R.id.action_disable_drag:
                 mBoardView.setDragEnabled(false);
                 getActivity().invalidateOptionsMenu();
@@ -178,24 +177,24 @@ public class BoardFragment extends Fragment {
             case R.id.action_clear_board:
                 mBoardView.clearBoard();
                 return true;
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 
     private void addColumn() {
         final ArrayList<Pair<Long, String>> mItemArray = new ArrayList<>();
-        int addItems = 15;
+        int addItems = 8;
         for (int i = 0; i < addItems; i++) {
-            long id = sCreatedItems++;
-            mItemArray.add(new Pair<>(id, "Item " + id));
+            long id = i;
+            mItemArray.add(new Pair<>(id, "Parcel " + id));
         }
 
         final int column = mColumns;
         final ItemAdapter listAdapter = new ItemAdapter(mItemArray, R.layout.column_item, R.id.item_layout, true);
         final View header = View.inflate(getActivity(), R.layout.column_header, null);
-        ((TextView) header.findViewById(R.id.text)).setText("Column " + (mColumns + 1));
+        ((TextView) header.findViewById(R.id.text)).setText("ColumnHeaderText " + (mColumns + 1));
         ((TextView) header.findViewById(R.id.item_count)).setText("" + addItems);
-        header.setOnClickListener(new View.OnClickListener() {
+       /* header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 long id = sCreatedItems++;
@@ -207,7 +206,7 @@ public class BoardFragment extends Fragment {
                 //mBoardView.replaceItem(0, 0, item1, true);
                 ((TextView) header.findViewById(R.id.item_count)).setText(String.valueOf(mItemArray.size()));
             }
-        });
+        });*/
         mBoardView.addColumn(listAdapter, header, header, false);
         mColumns++;
     }
@@ -303,6 +302,7 @@ public class BoardFragment extends Fragment {
             anim.setDuration(ANIMATION_DURATION);
             anim.start();
         }
+
 
         @Override
         public void onEndDragAnimation(View dragView) {

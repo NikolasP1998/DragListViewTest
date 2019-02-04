@@ -23,6 +23,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,18 +55,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean listFragment = getSupportFragmentManager().findFragmentByTag("fragment") instanceof ListFragment;
-        menu.findItem(R.id.action_lists).setVisible(!listFragment);
+     /*   menu.findItem(R.id.action_lists).setVisible(!listFragment);*/
         menu.findItem(R.id.action_board).setVisible(listFragment);
 
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_lists:
+           /* case R.id.action_lists:
                 showFragment(ListFragment.newInstance());
-                return true;
+                return true;*/
             case R.id.action_board:
                 showFragment(BoardFragment.newInstance());
                 return true;
@@ -72,3 +76,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
